@@ -56,4 +56,14 @@ public class Account {
 		balance -= amount;
 	}
 	
+	// Regra de Delegação: A classe não pode imprimir na tela, pois invade a responsabilidade da aplicação
+	public String validateWithdraw(double amount) {
+		if(amount > withdrawLimit) {
+			return "Withdraw error: The amount exceeds withdraw limit";
+		} 
+		if(amount > balance) {
+			return "Withdraw error: Not enough balance";
+		}
+		return null;
+	}
 }
