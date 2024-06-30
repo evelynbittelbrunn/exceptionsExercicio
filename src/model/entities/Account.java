@@ -1,5 +1,7 @@
 package model.entities;
 
+import exceptions.BusinessExceptions;
+
 public class Account {
 	private Integer number;
 	private String holder;
@@ -53,17 +55,17 @@ public class Account {
 	}
 	
 	public void withdraw(Double amount) {
+		validateWithdraw(amount);
 		balance -= amount;
 	}
 	
 	// Regra de Delegação: A classe não pode imprimir na tela, pois invade a responsabilidade da aplicação
-	public String validateWithdraw(double amount) {
+	private void validateWithdraw(double amount) {
 		if(amount > withdrawLimit) {
-			return "Withdraw error: The amount exceeds withdraw limit";
+			throw new BusinessExceptions("Withdraw error: The amount exceeds withdraw limit");
 		} 
 		if(amount > balance) {
-			return "Withdraw error: Not enough balance";
+			throw new BusinessExceptions("Withdraw error: Not enough balance");
 		}
-		return null;
 	}
 }

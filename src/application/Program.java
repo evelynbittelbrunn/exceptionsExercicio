@@ -3,6 +3,7 @@ package application;
 import java.util.Locale;
 import java.util.Scanner;
 
+import exceptions.BusinessExceptions;
 import model.entities.Account;
 
 public class Program {
@@ -30,13 +31,11 @@ public class Program {
 		System.out.print("Enter amount for withdraw: ");
 		Double amount = sc.nextDouble();
 		
-		
-		String error = acc.validateWithdraw(amount);
-		if(error != null) {
-			System.out.println(error);
-		} else {
+		try {
 			acc.withdraw(amount);
 			System.out.printf("New balance: %.2f%n", acc.getBalance());	
+		} catch(BusinessExceptions e) {
+			System.out.println(e.getMessage());
 		}
 		
 		sc.close();
